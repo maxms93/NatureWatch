@@ -41,7 +41,7 @@ public class DatabaseTest {
 			
 			preparedStatement = connection
 					.prepareStatement("insert into USER values (?,?,?,?)");
-			preparedStatement.setString(1, "test");
+			preparedStatement.setString(1, "max");
 			preparedStatement.setString(2, "test");
 			preparedStatement.setString(3, "test");
 			preparedStatement.setString(4, "test");
