@@ -1,25 +1,17 @@
 package at.jku.se.database;
 
-import at.jku.se.model.User;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class DatabaseTest {
 
 	public static void main(String[] args) {
 
 		System.out.println("Start Test");
-
-		String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
-		String MYSQL_URL = "jdbc:mysql://localhost:3306/naturewatch?user=admin&password=admin";
+		
+		DatabaseConnector db = new DatabaseConnector();
 
 		Connection connection;
 		Statement statement;
@@ -28,8 +20,7 @@ public class DatabaseTest {
 		
 		try {
 
-			Class.forName(MYSQL_DRIVER);
-			connection = DriverManager.getConnection(MYSQL_URL);
+			connection = db.getConnection();
 			
 			statement = connection.createStatement();
 

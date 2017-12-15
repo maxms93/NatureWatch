@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
-import at.hku.se.session.UserFacade;
+import at.jku.se.session.UserFacade;
 import at.jku.se.database.DatabaseConnector;
 import at.jku.se.model.User;
 

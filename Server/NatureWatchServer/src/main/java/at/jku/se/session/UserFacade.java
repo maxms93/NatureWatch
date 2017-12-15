@@ -1,4 +1,4 @@
-package at.hku.se.session;
+package at.jku.se.session;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
