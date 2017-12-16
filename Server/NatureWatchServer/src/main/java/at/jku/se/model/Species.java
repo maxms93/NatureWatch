@@ -11,7 +11,7 @@ public class Species {
 	private String latinName;
 	private String normalName;
 	private String description;
-	private ArrayList<Image> images;
+	private ArrayList<byte[]> images;
 	private int validFrom;
 	private int validTo;
 	
@@ -25,7 +25,7 @@ public class Species {
 		this.latinName = latinName;
 		this.normalName = normalName;
 		this.description = description;
-		this.images = new ArrayList<Image>();
+		this.images = new ArrayList<byte[]>();
 		this.validFrom = validFrom;
 		this.validTo = validTo;
 	}
@@ -66,11 +66,11 @@ public class Species {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public ArrayList<Image> getImages() {
+	public ArrayList<byte[]> getImages() {
 		return images;
 	}
-	public void setImages(ArrayList<Image> images) {
-		this.images = images;
+	public void addImage(byte[] image) {
+		this.images.add(image);
 	}
 	public int getValidFrom() {
 		return validFrom;

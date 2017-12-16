@@ -1,9 +1,11 @@
-package at.jku.se.database;
+package at.jku.se.test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import at.jku.se.database.DatabaseConnector;
 
 public class DatabaseTest {
 

@@ -8,7 +8,7 @@ public class Sighting {
 
 	private int id;
 	private int speciesId;
-	private ArrayList<Image> images;
+	private ArrayList<byte[]> images;
 	private String description;
 	private double longitude;
 	private double latitude;
@@ -27,7 +27,7 @@ public class Sighting {
 		super();
 		this.id = id;
 		this.speciesId = speciesId;
-		this.images = new ArrayList<Image>();
+		this.images = new ArrayList<byte[]>();
 		this.description = description;
 		this.longitude = longitude;
 		this.latitude = latitude;
@@ -56,11 +56,11 @@ public class Sighting {
 		this.speciesId = speciesId;
 	}
 
-	public ArrayList<Image> getImages() {
+	public ArrayList<byte[]> getImages() {
 		return images;
 	}
 
-	public void addImages(Image image) {
+	public void addImages(byte[] image) {
 		this.images.add(image);
 	}
 

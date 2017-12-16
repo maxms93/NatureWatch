@@ -14,6 +14,7 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 
+import at.jku.se.database.FTPHandler;
 import at.jku.se.model.Sighting;
 
 public class SightingFacade {
@@ -40,19 +41,17 @@ public class SightingFacade {
 				String user = result.getString("USER");
 				Date dateTime = result.getDate("DATETIME");
 				boolean enabled = result.getString("ENABLED").equals("Y");
-				Blob imageBlob = result.getBlob("IMAGE1");
-				byte[] imagebytes = imageBlob.getBytes(1, (int) imageBlob.length());
-
-			    Image image =ImageIO.read(new ByteArrayInputStream(imagebytes));
+				String imgName= result.getString("IMAGE1");
+				
+				FTPHandler ftp = new FTPHandler();
+				byte[] imagebytes = ftp.getFile(imgName);
 				
 				s = new Sighting(rid, speciesId, description, longitude, latitude, seaLevel, state, country, city, user, dateTime, enabled);
-				s.addImages(image);
+				s.addImages(imagebytes);
 
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return s;
