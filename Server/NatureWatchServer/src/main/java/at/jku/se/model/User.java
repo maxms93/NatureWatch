@@ -31,6 +31,10 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	public User() {
+		super();
+	}
+
 	public String getUsername() {
 		return username;
 	}
