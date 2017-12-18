@@ -14,9 +14,9 @@ public class ServletTest {
 
 	public static void main(String[] args) {
 
-		User u = new User("max4", "1234", "test", "2", "ds", "dsd", "fdf", true);
+		User u = new User("max565", "12345", "max-ms@gmx.at", "2", "update test", "dsd", "fdf", true);
 		
-		String postUrl = "http://localhost:9356/NatureWatchServer/user/create";
+		String postUrl = "http://localhost:9356/NatureWatchServer/user/update";
 		String getUrl = "http://localhost:9356/NatureWatchServer/species/1";
 
 		Client client = Client.create();

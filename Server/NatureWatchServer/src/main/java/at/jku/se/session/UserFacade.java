@@ -76,4 +76,29 @@ public class UserFacade {
 		}
 		
 	}
+
+	public static void updateUser(Connection connection, User updateUser) {
+
+		try {
+			PreparedStatement statement = connection
+					.prepareStatement("UPDATE user SET PASSWORD = ?, "
+							+ " EMAIL = ?, "
+							+ " FIRSTNAME = ?, "
+							+ " LASTNAME = ?, "
+							+ " ZIP = ?, "
+							+ " CITY = ? "
+							+ " WHERE USERNAME = ?");
+			statement.setString(1, updateUser.getPassword());
+			statement.setString(2, updateUser.getEmail());
+			statement.setString(3, updateUser.getFirstname());
+			statement.setString(4, updateUser.getLastname());
+			statement.setString(5, updateUser.getZip());
+			statement.setString(6, updateUser.getCity());
+			statement.setString(7, updateUser.getUsername());
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

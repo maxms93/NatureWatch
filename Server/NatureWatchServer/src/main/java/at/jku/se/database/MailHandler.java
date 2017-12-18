@@ -18,7 +18,7 @@ public class MailHandler {
 
 	public static void sendMail(String empfaenger, String betreff, String text) {
 
-		// https://myaccount.google.com/lesssecureapps
+		// https://myaccount.google.com/lesssecureapps aktivieren
 		try{
            
             Properties prop = getMailProperties();            		

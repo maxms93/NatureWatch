@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import at.jku.se.session.UserFacade;
 import at.jku.se.database.DatabaseConnector;
+import at.jku.se.database.MailHandler;
 import at.jku.se.model.User;
 
 @Path("/user")
@@ -87,6 +88,7 @@ public class UserController {
 			String link = "http://" + prop.getProperty("server") + ":"
 					+ prop.getProperty("port")
 					+ "/NatureWatchServer/user/enable/" + newUser.getUsername();
+			MailHandler.sendMail(newUser.getEmail(), "Bestätigungsmail", link);
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -109,6 +111,7 @@ public class UserController {
 	public Response enable(@PathParam("usernmame") String username) {
 
 		DatabaseConnector db = new DatabaseConnector();
+		
 		User u = UserFacade.getUser(db.getConnection(), username);
 
 		if (u == null) {
@@ -125,11 +128,21 @@ public class UserController {
 	@POST
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(User newUsser) {
+	public Response update(User updateUser) {
 
-		// Ändern der User Daten
+		DatabaseConnector db = new DatabaseConnector();
+		
+		User u = UserFacade.getUser(db.getConnection(), updateUser.getUsername());
 
-		return Response.status(200).entity("User freigeschalten!").build();
+		if (u == null) {
+			System.out.println("User " + updateUser.getUsername() + " doesn't exist!");
+			return Response.status(202)
+					.entity("User " + updateUser.getUsername() + " doesn't exist!").build();
+		}
+		
+		UserFacade.updateUser(db.getConnection(), updateUser);
+
+		return Response.status(200).entity("User updated!").build();
 	}
 
 }
