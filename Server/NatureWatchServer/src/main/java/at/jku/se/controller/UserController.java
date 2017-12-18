@@ -1,12 +1,15 @@
 package at.jku.se.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -28,7 +31,8 @@ public class UserController {
 		User u = UserFacade.getUser(db.getConnection(), user.getUsername());
 
 		if (u == null) {
-			System.out.println("User " + user.getUsername() + " doesn't exist!");
+			System.out
+					.println("User " + user.getUsername() + " doesn't exist!");
 			return new User("", "", "", "", "", "", "", false);
 		}
 
@@ -48,35 +52,84 @@ public class UserController {
 	@POST
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response create(User newUsser) {
+	public Response create(User newUser) {
 
 		DatabaseConnector db = new DatabaseConnector();
-		String output = "User created!";
-		User u = UserFacade.getUser(db.getConnection(), newUsser.getUsername());
+		User u = UserFacade.getUser(db.getConnection(), newUser.getUsername());
 
 		if (u != null) {
-			output = "User " + u.getUsername() + " already exists!";
-			System.out.println(output);
-			return Response.status(200).entity(output).build();
+			System.out.println("User " + u.getUsername() + " already exists!");
+			return Response.status(201)
+					.entity("User " + u.getUsername() + " already exists!")
+					.build();
 		}
-		
-		// insert user
-		
-		// mail schicken
 
+		UserFacade.insertUser(db.getConnection(), newUser);
 
-		return Response.status(200).entity(output).build();
+		Properties prop = new Properties();
+		InputStream input = null;
+
+		try {
+
+			String filename = "server.properties";
+			input = UserController.class.getClassLoader().getResourceAsStream(
+					filename);
+
+			if (input == null) {
+				System.out.println("Sorry, unable to find " + filename);
+			}
+
+			prop.load(input);
+
+			System.out.println(prop.getProperty("server"));
+			System.out.println(prop.getProperty("port"));
+
+			String link = "http://" + prop.getProperty("server") + ":"
+					+ prop.getProperty("port")
+					+ "/NatureWatchServer/user/enable/" + newUser.getUsername();
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+
+		return Response.status(200).entity("User created!").build();
 	}
 
-	/*
-	 * Functions:
-	 * 
-	 * Registrieren (inserten in die datenbank als unable, senden der
-	 * bestätigungsmail mit link auf einen restservice)
-	 * 
-	 * empfangen der Bestätigungsmail und freischalten des Users
-	 * 
-	 * Ändern der User Daten
-	 */
+	@GET
+	@Path("/enable/{usernmame}")
+	public Response enable(@PathParam("usernmame") String username) {
+
+		DatabaseConnector db = new DatabaseConnector();
+		User u = UserFacade.getUser(db.getConnection(), username);
+
+		if (u == null) {
+			System.out.println("User " + username + " doesn't exist!");
+			return Response.status(202)
+					.entity("User " + username + " doesn't exist!").build();
+		}
+
+		UserFacade.enableUser(db.getConnection(), username);
+
+		return Response.status(200).entity("User enabled!").build();
+	}
+
+	@POST
+	@Path("/update")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response update(User newUsser) {
+
+		// Ändern der User Daten
+
+		return Response.status(200).entity("User freigeschalten!").build();
+	}
 
 }

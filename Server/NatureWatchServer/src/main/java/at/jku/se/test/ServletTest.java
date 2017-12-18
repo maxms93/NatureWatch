@@ -6,6 +6,7 @@ import com.sun.jersey.api.client.WebResource;
 
 
 
+
 import at.jku.se.model.Species;
 import at.jku.se.model.User;
 
@@ -13,9 +14,9 @@ public class ServletTest {
 
 	public static void main(String[] args) {
 
-		User u = new User("max4", "1234", null, null, null, null, null, true);
+		User u = new User("max4", "1234", "test", "2", "ds", "dsd", "fdf", true);
 		
-		String postUrl = "http://localhost:9356/NatureWatchServer/user/login";
+		String postUrl = "http://localhost:9356/NatureWatchServer/user/create";
 		String getUrl = "http://localhost:9356/NatureWatchServer/species/1";
 
 		Client client = Client.create();
@@ -28,8 +29,8 @@ public class ServletTest {
 		//POST
 
 		webResource = client.resource(postUrl);
-		User  response = webResource.type("application/json").post(
-				User.class, u);
+		ClientResponse  response = webResource.type("application/json").post(
+				ClientResponse.class, u);
 		
 		System.out.println("Response from the Server: ");
 		System.out.println(response);

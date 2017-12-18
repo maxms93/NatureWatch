@@ -76,7 +76,7 @@ public class FTPHandler {
 		try {
 
 			String filename = "ftp.properties";
-			input = DatabaseConnector.class.getClassLoader()
+			input = FTPHandler.class.getClassLoader()
 					.getResourceAsStream(filename);
 			if (input == null) {
 				System.out.println("Sorry, unable to find " + filename);
