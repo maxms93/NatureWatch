@@ -1,20 +1,9 @@
 package at.jku.se.model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import com.mysql.jdbc.PreparedStatement;
-
+import com.owlike.genson.annotation.JsonProperty;
 
 public class User {
-	
+
 	private String username;
 	private String password;
 	private String email;
@@ -23,11 +12,15 @@ public class User {
 	private String zip;
 	private String city;
 	private boolean enabled;
-	
-	public User(String username, String password, String email,
-			String firstname, String lastname, String zip, String city,
-			boolean enabled) {
-		super();
+
+	public User(@JsonProperty("username") String username,
+			@JsonProperty("password") String password,
+			@JsonProperty("email") String email,
+			@JsonProperty("firstname") String firstname,
+			@JsonProperty("lastname") String lastname,
+			@JsonProperty("zip") String zip,
+			@JsonProperty("city") String city,
+			@JsonProperty("enabled") boolean enabled) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -101,5 +94,5 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-		
+
 }

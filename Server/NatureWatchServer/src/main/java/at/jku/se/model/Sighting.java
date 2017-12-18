@@ -1,8 +1,9 @@
 package at.jku.se.model;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.owlike.genson.annotation.JsonProperty;
 
 public class Sighting {
 
@@ -20,14 +21,23 @@ public class Sighting {
 	private Date dateTime;
 	private boolean enabled;
 
-	public Sighting(int id, int speciesId, String description,
-			double longitude, double latitude, int seaLevel, String state,
-			String country, String city, String user, Date dateTime,
-			boolean enabled) {
+	public Sighting(@JsonProperty("id") int id,
+			@JsonProperty("speciesId") int speciesId,
+			@JsonProperty("description") String description,
+			@JsonProperty("longitude") double longitude,
+			@JsonProperty("latitude") double latitude,
+			@JsonProperty("seaLevel") int seaLevel,
+			@JsonProperty("state") String state,
+			@JsonProperty("country") String country,
+			@JsonProperty("city") String city,
+			@JsonProperty("user") String user,
+			@JsonProperty("dateTime") Date dateTime,
+			@JsonProperty("enabled") boolean enabled,
+			@JsonProperty("images") ArrayList<byte[]> images) {
 		super();
 		this.id = id;
 		this.speciesId = speciesId;
-		this.images = new ArrayList<byte[]>();
+		this.images = images;
 		this.description = description;
 		this.longitude = longitude;
 		this.latitude = latitude;
@@ -38,6 +48,26 @@ public class Sighting {
 		this.user = user;
 		this.dateTime = dateTime;
 		this.enabled = enabled;
+	}
+
+	public Sighting(int id, int speciesId, String description,
+			double longitude, double latitude, int seaLevel, String state,
+			String country, String city, String user, Date dateTime,
+			boolean enabled) {
+		super();
+		this.id = id;
+		this.speciesId = speciesId;
+		this.description = description;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.seaLevel = seaLevel;
+		this.state = state;
+		this.country = country;
+		this.city = city;
+		this.user = user;
+		this.dateTime = dateTime;
+		this.enabled = enabled;
+		this.images = new ArrayList<byte[]>();
 	}
 
 	public int getId() {

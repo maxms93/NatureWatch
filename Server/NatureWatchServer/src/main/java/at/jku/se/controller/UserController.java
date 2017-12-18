@@ -18,21 +18,40 @@ import at.jku.se.model.User;
 public class UserController {
 
 	@POST
+	@Path("/post")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String login(User user) {
+	public Response postStudentRecord(User student) {
 
-		//check if user für username exists
-		
-		//check password wenn ja 
+		String result = "Record entered: " + student;
 
-		return "test";
+		return Response.status(201).entity(result).build();
+
+	}
+
+	@GET
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User login(User user) {
+
+		// check if user für username exists
+
+		// check if user ist enabled
+
+		// check password wenn ja
+
+		return user;
 	}
 
 	/*
 	 * Functions:
 	 * 
-	 * Anmeleden Registrieren
+	 * Registrieren (inserten in die datenbank als unable, senden der
+	 * bestätigungsmail mit link auf einen restservice)
+	 * 
+	 * empfangen der Bestätigungsmail und freischalten des Users
+	 * 
+	 * Ändern der User Daten
 	 */
 
 }
