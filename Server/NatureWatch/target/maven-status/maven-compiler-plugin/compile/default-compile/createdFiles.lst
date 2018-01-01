@@ -1,7 +1,0 @@
-rest\ApplicationConfig.class
-entity\Person.class
-session\AbstractFacade.class
-session\InitBean.class
-entity\Person_.class
-session\PersonFacade.class
-rest\PersonRessource.class
