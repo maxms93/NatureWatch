@@ -1,5 +1,0 @@
-im xampp filzilla starten
-Unter edit -> users einen User admin hinzufügen
-Dann unter shared folders einen order auf deinem pc auswählen wo die ftp daten abgelegt werden
-fertig!
-Dann der FTP Server genutzt werden
