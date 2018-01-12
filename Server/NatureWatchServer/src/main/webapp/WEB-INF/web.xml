@@ -23,7 +23,7 @@
 
 	<servlet-mapping>
 		<servlet-name>controller-servlet</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 
 
