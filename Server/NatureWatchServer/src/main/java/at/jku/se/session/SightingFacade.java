@@ -145,10 +145,10 @@ public class SightingFacade {
 			if (sighting.getImage1() != null) {
 				ftp.putFile(sighting.getId()+"_"+"1", sighting.getImage1());
 			}
-			if (sighting.getImage1() != null) {
+			if (sighting.getImage2() != null) {
 				ftp.putFile(sighting.getId()+"_"+"2", sighting.getImage2());
 			}
-			if (sighting.getImage1() != null) {
+			if (sighting.getImage3() != null) {
 				ftp.putFile(sighting.getId()+"_"+"3", sighting.getImage3());
 			}
 			statement.executeUpdate();
