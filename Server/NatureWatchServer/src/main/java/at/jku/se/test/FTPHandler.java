@@ -1,4 +1,4 @@
-package at.jku.se.database;
+package at.jku.se.test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

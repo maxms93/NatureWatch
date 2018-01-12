@@ -15,6 +15,7 @@ import at.jku.se.database.DatabaseConnector;
 import at.jku.se.model.Species;
 import at.jku.se.session.SpeciesFacade;
 
+
 @Path("/species")
 public class SpeciesController {
 
@@ -27,6 +28,8 @@ public class SpeciesController {
 
 		Species s = SpeciesFacade.getSpecies(db.getConnection(), id);
 
+		db.close();
+		
 		return s;
 
 	}
@@ -47,15 +50,10 @@ public class SpeciesController {
 		List<Species> list = SpeciesFacade.getSpecies(db.getConnection(),
 				species, category, latinName, normalName, date.getMonth());
 
+		db.close();
+		
 		return list;
 
 	}
-
-	/*
-	 * 
-	 * Functions:
-	 * 
-	 * add für admin console eventuell
-	 */
 
 }

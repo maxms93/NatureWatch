@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import at.jku.se.database.FTPHandler;
+import at.jku.se.database.FileHandler;
 import at.jku.se.model.Species;
 
 public class SpeciesFacade {
@@ -32,13 +32,20 @@ public class SpeciesFacade {
 				int validFrom = result.getInt("VALIDFROM");
 				int validTo = result.getInt("VALIDTO");
 				String img1Name = result.getString("IMAGE1");
+				String img2Name = result.getString("IMAGE2");
+				String img3Name = result.getString("IMAGE3");
+				String img4Name = result.getString("IMAGE4");
+				String img5Name = result.getString("IMAGE5");
 
-				FTPHandler ftp = new FTPHandler();
-				byte[] imagebytes = ftp.getFile(img1Name);
+				FileHandler ftp = new FileHandler();
+				byte[] image1 = ftp.getFile(img1Name);
+				byte[] image2 = ftp.getFile(img2Name);
+				byte[] image3 = ftp.getFile(img3Name);
+				byte[] image4 = ftp.getFile(img4Name);
+				byte[] image5 = ftp.getFile(img5Name);
 
 				s = new Species(rid, species, category, latinName, normalName,
-						description, validFrom, validTo);
-				s.addImage(imagebytes);
+						description, validFrom, validTo, image1, image2, image3, image4, image5);
 
 			}
 
@@ -82,13 +89,20 @@ public class SpeciesFacade {
 				int rvalidFrom = result.getInt("VALIDFROM");
 				int rvalidTo = result.getInt("VALIDTO");
 				String img1Name = result.getString("IMAGE1");
+				String img2Name = result.getString("IMAGE2");
+				String img3Name = result.getString("IMAGE3");
+				String img4Name = result.getString("IMAGE4");
+				String img5Name = result.getString("IMAGE5");
 
-				FTPHandler ftp = new FTPHandler();
-				byte[] imagebytes = ftp.getFile(img1Name);
+				FileHandler ftp = new FileHandler();
+				byte[] image1 = ftp.getFile(img1Name);
+				byte[] image2 = ftp.getFile(img2Name);
+				byte[] image3 = ftp.getFile(img3Name);
+				byte[] image4 = ftp.getFile(img4Name);
+				byte[] image5 = ftp.getFile(img5Name);
 
 				s = new Species(rid, rspecies, rcategory, rlatinName, rnormalName,
-						rdescription, rvalidFrom, rvalidTo);
-				s.addImage(imagebytes);
+						rdescription, rvalidFrom, rvalidTo, image1, image2, image3, image4, image5);
 				
 				list.add(s);
 

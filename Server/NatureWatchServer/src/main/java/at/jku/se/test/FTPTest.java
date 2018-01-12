@@ -10,13 +10,13 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPSClient;
 
-import at.jku.se.database.FTPHandler;
+import at.jku.se.database.FileHandler;
 
 public class FTPTest {
 
 	public static void main(String[] args) {
 		
-		FTPHandler ftp = new FTPHandler();
+		FileHandler ftp = new FileHandler();
 
 		 String server = "127.0.0.1";
 	        int port = 21;
