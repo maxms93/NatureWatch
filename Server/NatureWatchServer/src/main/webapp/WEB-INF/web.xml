@@ -1,10 +1,12 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
 
-<web-app>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" 
+         version="2.5" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"> 
+
 	<display-name>Archetype Created Web Application</display-name>
-
+	
 	<servlet>
 		<servlet-name>controller-servlet</servlet-name>
 		<servlet-class>
@@ -20,12 +22,65 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<servlet>
+		<display-name>DetailController</display-name>
+		<servlet-name>DetailController</servlet-name>
+		<servlet-class>at.jku.se.web.DetailController</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>EnableServlet</display-name>
+		<servlet-name>EnableServlet</servlet-name>
+		<servlet-class>at.jku.se.web.EnableServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>DeleteSightingController</display-name>
+		<servlet-name>DeleteSightingController</servlet-name>
+		<servlet-class>at.jku.se.web.DeleteSightingController</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>SpeciesController</display-name>
+		<servlet-name>SpeciesController</servlet-name>
+		<servlet-class>at.jku.se.web.SpeciesController</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>SpeciesWebController</display-name>
+		<servlet-name>SpeciesWebController</servlet-name>
+		<servlet-class>at.jku.se.web.SpeciesWebController</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>controller-servlet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>DetailController</servlet-name>
+		<url-pattern>/DetailAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EnableServlet</servlet-name>
+		<url-pattern>/EnableAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteSightingController</servlet-name>
+		<url-pattern>/DeleteSightingAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SpeciesWebController</servlet-name>
+		<url-pattern>/DelSpecAction</url-pattern>
+	</servlet-mapping>
 
-
+	<welcome-file-list>
+	<welcome-file>Sightings.jsp</welcome-file>
+	</welcome-file-list>
 
 </web-app>

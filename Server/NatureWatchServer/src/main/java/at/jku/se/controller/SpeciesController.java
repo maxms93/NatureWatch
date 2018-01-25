@@ -46,19 +46,15 @@ public class SpeciesController {
 		DatabaseConnector db = new DatabaseConnector();
 
 		Date date = new Date();
+
 		
 		List<Species> list = SpeciesFacade.getSpecies(db.getConnection(),
-				species, category, latinName, normalName, date.getMonth());
+				species, category, latinName, normalName, date.getMonth()+1);
 
 		db.close();
 		
 		return list;
 
 	}
-	
-	// ADD
-	
-	
-	// DELETE
 
 }

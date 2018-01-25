@@ -93,26 +93,6 @@ public class Sighting {
 		this.enabled = enabled;
 	}
 
-	/*public Sighting(int id, int speciesId, String description,
-			double longitude, double latitude, int seaLevel, String state,
-			String country, String city, String user, Date dateTime,
-			boolean enabled) {
-		super();
-		this.id = id;
-		this.speciesId = speciesId;
-		this.description = description;
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.seaLevel = seaLevel;
-		this.state = state;
-		this.country = country;
-		this.city = city;
-		this.user = user;
-		this.dateTime = dateTime;
-		this.enabled = enabled;
-		this.images = new ArrayList<byte[]>();
-	}*/
-
 	public Long getId() {
 		return id;
 	}
@@ -128,14 +108,6 @@ public class Sighting {
 	public void setSpeciesId(int speciesId) {
 		this.speciesId = speciesId;
 	}
-
-	/*public ArrayList<byte[]> getImages() {
-		return images;
-	}
-
-	public void addImages(byte[] image) {
-		this.images.add(image);
-	}*/
 
 	public String getDescription() {
 		return description;

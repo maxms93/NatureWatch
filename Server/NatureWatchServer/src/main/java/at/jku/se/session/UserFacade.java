@@ -9,27 +9,27 @@ import at.jku.se.model.User;
 
 public class UserFacade {
 
-	public static User getUser(Connection connection, String username) {
+	public static User getUser(Connection connection, String email) {
 
 		User u = null;
 
 		try {
 			PreparedStatement statement = connection
-					.prepareStatement("SELECT * from user where username = ?");
-			statement.setString(1, username);
+					.prepareStatement("SELECT * from user where email = ?");
+			statement.setString(1, email);
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				String rusername = result.getString("USERNAME");
+				String username = result.getString("USERNAME");
 				String password = result.getString("PASSWORD");
-				String email = result.getString("EMAIL");
+				String remail = result.getString("EMAIL");
 				String firstname = result.getString("FIRSTNAME");
 				String lastname = result.getString("LASTNAME");
 				String zip = result.getString("ZIP");
 				String city = result.getString("CITY");
 				boolean enabled = result.getString("ENABLED").equals("Y");
 
-				u = new User(rusername, password, email, firstname, lastname,
+				u = new User(username, password, remail, firstname, lastname,
 						zip, city, enabled);
 
 			}
