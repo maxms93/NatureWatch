@@ -7,7 +7,8 @@
 <%@ page import="at.jku.se.database.*"%>
 <%@ page import="at.jku.se.model.*"%>
 <% DatabaseConnector db = new DatabaseConnector();%>
-<% Sighting sighting = SightingFacade.getSigthingAdmin(db.getConnection(), Long.parseLong(request.getParameter("name")));%>
+<% Sighting sighting = SightingFacade.getSigthingAdmin(db.getConnection(), Long.parseLong(request.getParameter("name")));
+   db.close();%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,13 +23,13 @@
         		
         	}
         	
-        	th,td
+        	th,td,button
         	{
         		padding: 10px;
         		text-align: center;
         	}
         	
-        	th
+        	th,button
         	{
         		background-color: #a70000; 
         		color: white;
@@ -50,6 +51,13 @@
 </head>
 <body>
 <h1 style="font-size:200%;" style="font-family: Arial, Verdana"><u> Detail: </u></h1>
+
+<form name="enableForm" action="EnableAction" method="Post">
+    <button name="enableSub" value="<%=sighting.getId()%>" type="submit" onclick="return confirm('Wollen Sie es wirklich Freigeben?')">Freigeben</button>
+</form>
+<form name="deleteForm" action="DeleteSightingAction" method="Post">
+  	<button name="deleteSub" value="<%=sighting.getId()%>" type="submit" onclick="return confirm('Wollen Sie wirklich Löschen?')">Löschen</button>
+</form>
 <table>
 	<tr>
 		<td><b>Id: </b></td>
@@ -112,12 +120,6 @@
 		<td><%=sighting.getImage3()%></td>
 	</tr>
 	</table>
-	
-	<form name="enableForm" action="EnableAction" method="Post">
-    	<button name="enableSub" value="<%=sighting.getId()%>" type="submit">Freigeben</button>
-	</form>
-	<form name="deleteForm" action="DeleteSightingAction" method="Post">
-    	<button name="deleteSub" value="<%=sighting.getId()%>" type="submit">Löschen</button>
-	</form>
+
 </body>
 </html>

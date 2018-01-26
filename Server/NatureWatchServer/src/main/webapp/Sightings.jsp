@@ -32,7 +32,8 @@ strDateTo = formatter.format(dateTo);
 %>
 <% DatabaseConnector db = new DatabaseConnector();%>
 <% List<Species> speciesList = (List<Species>) SpeciesFacade.getSpeciesForAdmin(db.getConnection(), "%"); %>
-<% List<Sighting> eList = (List<Sighting>)SightingFacade.getSightingFilterForAdminDate(db.getConnection(), dateFrom, dateTo, "%"+userName+"%", speciesId, "%"+cityName+"%", "%"+countryName+"%", itemEnabled);%>
+<% List<Sighting> eList = (List<Sighting>)SightingFacade.getSightingFilterForAdminDate(db.getConnection(), dateFrom, dateTo, "%"+userName+"%", speciesId, "%"+cityName+"%", "%"+countryName+"%", itemEnabled);
+   db.close();%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
