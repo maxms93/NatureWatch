@@ -104,6 +104,7 @@ public class DetailController extends HttpServlet {
 					s.setEnabled(true);
 				}
 				SightingFacade.updateSightingAdmin(db.getConnection(), sightingsList);
+				db.close();
 				response.sendRedirect("Sightings.jsp");
 			}
 		}
@@ -115,6 +116,7 @@ public class DetailController extends HttpServlet {
 			//System.out.println(selectItemsId[0]);
 			if (selectItemsId != null) {
 				SightingFacade.deleteSightingByAdmin(db.getConnection(), selectItemsId);
+				db.close();
 				response.sendRedirect("Sightings.jsp");
 			}
 		}
@@ -150,6 +152,7 @@ public class DetailController extends HttpServlet {
 		{
 			speciesId = "%";
 		}
+		db.close();
 		return speciesId; 
 	}
 	
@@ -197,7 +200,7 @@ public class DetailController extends HttpServlet {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({"static-access" })
 	public static Date getDateFrom(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		Calendar c = Calendar.getInstance();
@@ -208,8 +211,10 @@ public class DetailController extends HttpServlet {
 		String strDateFrom = request.getParameter("datefrom");
 		if (strDateFrom != null && strDateFrom != "") {
 			parseDate = strDateFrom.split("/");
-			c.set(Integer.parseInt(parseDate[2]), Integer.parseInt(parseDate[0])-1,
-					Integer.parseInt(parseDate[1]),0, 0, 0);
+			c.set(Integer.parseInt(parseDate[2]), Integer.parseInt(parseDate[1])-1,
+					Integer.parseInt(parseDate[0]),0, 0, 0);
+			/*c.set(Integer.parseInt(parseDate[2]), Integer.parseInt(parseDate[0])-1,
+					Integer.parseInt(parseDate[1]),0, 0, 0);*/
 			/*dateFrom.setMonth(Integer.parseInt(parseDate[0])-1);
 			dateFrom.setDate(Integer.parseInt(parseDate[1]));
 			dateFrom.setYear(Integer.parseInt(parseDate[2])-1900);
@@ -221,8 +226,9 @@ public class DetailController extends HttpServlet {
 		}
 		else
 		{
-			c.setTime(new Date(Long.MIN_VALUE));
-			c.set(Calendar.YEAR, 1970);
+			/*c.setTime(new Date(Long.MIN_VALUE));
+			c.set(Calendar.YEAR, 1970);*/
+			c.set(2010, 0, 1);
 			dateFrom = c.getTime();
 
 			/*dateFrom.setMonth(0);
@@ -236,7 +242,7 @@ public class DetailController extends HttpServlet {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({"static-access" })
 	public static Date getDateTo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		Calendar c = Calendar.getInstance();
@@ -245,8 +251,9 @@ public class DetailController extends HttpServlet {
 		String strDateTo = request.getParameter("dateto");
 		if (strDateTo != null && strDateTo != "") {
 			parseDate = strDateTo.split("/");
-			c.set(Integer.parseInt(parseDate[2]), Integer.parseInt(parseDate[0])-1,
-					Integer.parseInt(parseDate[1]),0, 0, 0);
+			c.set(Integer.parseInt(parseDate[2]), Integer.parseInt(parseDate[1])-1,Integer.parseInt(parseDate[0]),0, 0, 0);
+			/*c.set(Integer.parseInt(parseDate[2]), Integer.parseInt(parseDate[0])-1,
+					Integer.parseInt(parseDate[1]),0, 0, 0);*/
 			/*dateTo.setMonth(Integer.parseInt(parseDate[1])-1);
 			dateTo.setDate(Integer.parseInt(parseDate[2]));
 			dateTo.setYear(Integer.parseInt(parseDate[0])-1900);
@@ -258,9 +265,10 @@ public class DetailController extends HttpServlet {
 		}
 		else
 		{
-			c.setTime(new Date(Long.MIN_VALUE));
+			/*c.setTime(new Date(Long.MIN_VALUE));
 			c.set(Calendar.YEAR, 2100);
-			dateTo = c.getTime();
+			dateTo = c.getTime();*/
+			dateTo = c.getInstance().getTime();
 			return dateTo;
 		}
 	}

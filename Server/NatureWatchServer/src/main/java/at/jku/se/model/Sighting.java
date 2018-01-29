@@ -14,9 +14,6 @@ public class Sighting {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private int speciesId;
-	private byte[] image1;
-	private byte[] image2;
-	private byte[] image3;
 	private String description;
 	private double longitude;
 	private double latitude;
@@ -27,6 +24,38 @@ public class Sighting {
 	private String user;
 	private Date dateTime;
 	private boolean enabled;
+	private byte[] image1;
+	private byte[] image2;
+	private byte[] image3;
+	private String image1Name;
+	private String image2Name;
+	private String image3Name;
+
+	public Sighting(int speciesId, String description,
+			double longitude, double latitude, int seaLevel, String state,
+			String country, String city, String user, Date dateTime,
+			boolean enabled, byte[] image1, byte[] image2, byte[] image3,
+			String image1Name, String image2Name, String image3Name) {
+		super();
+		this.id = id;
+		this.speciesId = speciesId;
+		this.description = description;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.seaLevel = seaLevel;
+		this.state = state;
+		this.country = country;
+		this.city = city;
+		this.user = user;
+		this.dateTime = dateTime;
+		this.enabled = enabled;
+		this.image1 = image1;
+		this.image2 = image2;
+		this.image3 = image3;
+		this.image1Name = image1Name;
+		this.image2Name = image2Name;
+		this.image3Name = image3Name;
+	}
 
 	public Sighting(@JsonProperty("id") Long id,
 			@JsonProperty("speciesId") int speciesId,
@@ -210,5 +239,31 @@ public class Sighting {
 	public void setImage3(byte[] image3) {
 		this.image3 = image3;
 	}
+
+	public String getImage1Name() {
+		return image1Name;
+	}
+
+	public void setImage1Name(String image1Name) {
+		this.image1Name = image1Name;
+	}
+
+	public String getImage2Name() {
+		return image2Name;
+	}
+
+	public void setImage2Name(String image2Name) {
+		this.image2Name = image2Name;
+	}
+
+	public String getImage3Name() {
+		return image3Name;
+	}
+
+	public void setImage3Name(String image3Name) {
+		this.image3Name = image3Name;
+	}
+	
+	
 
 }

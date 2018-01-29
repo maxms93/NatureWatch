@@ -17,8 +17,7 @@ String countryName;
 String itemEnabled;
 Date dateFrom;
 Date dateTo;
-SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-String strDateFrom;
+SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");String strDateFrom;
 String strDateTo;
 userName = DetailController.getUserName(request, response);
 speciesId = DetailController.getSpeciesId(request, response);
@@ -32,8 +31,11 @@ strDateTo = formatter.format(dateTo);
 %>
 <% DatabaseConnector db = new DatabaseConnector();%>
 <% List<Species> speciesList = (List<Species>) SpeciesFacade.getSpeciesForAdmin(db.getConnection(), "%"); %>
-<% List<Sighting> eList = (List<Sighting>)SightingFacade.getSightingFilterForAdminDate(db.getConnection(), dateFrom, dateTo, "%"+userName+"%", speciesId, "%"+cityName+"%", "%"+countryName+"%", itemEnabled);
-   db.close();%>
+<% List<Sighting> eList = (List<Sighting>)SightingFacade.getSightingFilterForAdminDate(db.getConnection(), dateFrom, dateTo, "%"+userName+"%", speciesId, "%"+cityName+"%", "%"+countryName+"%", itemEnabled);%>
+<% if(userName.equals("%")) userName=""; %>
+<% if(cityName.equals("%")) cityName=""; %>
+<% if(countryName.equals("%")) countryName=""; %>
+<% db.close();%>	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -44,12 +46,12 @@ strDateTo = formatter.format(dateTo);
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $(function () {
-                $("#dateFrom").datepicker();
+            	$("#dateF").datepicker({ dateFormat: 'dd/mm/yy' });
             });
         </script>
         <script>
             $(function () {
-                $("#dateTo").datepicker();
+            	$("#dateT").datepicker({ dateFormat: 'dd/mm/yy' });
             });
         </script>
         
@@ -117,13 +119,11 @@ strDateTo = formatter.format(dateTo);
     		 </select></td>
     		 
     	<td><label for="dateFrom"></label><b>Datum von: </b></td>
-		<td><input type="text" name="datefrom" id="dateFrom" value="<%= strDateFrom%>"></td>
-	</tr>
+		<td><input type="text" name="datefrom" id="dateF" value="<%= strDateFrom%>"></td>	</tr>
 
 	<tr>
 		<td><label for="dateTo"><b>Datum bis: </b></label></td>
-		<td><input type="text" name="dateto" id="dateTo" value="<%= strDateTo%>"></td>
-		
+		<td><input type="text" name="dateto" id="dateT" value="<%= strDateTo%>"></td>		
 		<td> </td>
 		<td><button name="filter" value="filter" type="submit">Filtern</button></td>
 	</tr>
@@ -165,15 +165,15 @@ strDateTo = formatter.format(dateTo);
 		<td><%= eList.get(i).getUser() %></td>
 		<td><%= eList.get(i).getDateTime() %></td>
 		<td><%= eList.get(i).isEnabled() %></td>
-		<td><%= eList.get(i).getImage1() %></td>
-		<td><%= eList.get(i).getImage2() %></td>
-		<td><%= eList.get(i).getImage3() %></td>
+		<td><img src="../images/<%=eList.get(i).getImage1Name()%>" width="40" height="40"></td>
+		<td><img src="../images/<%=eList.get(i).getImage2Name()%>" width="40" height="40"></td>
+		<td><img src="../images/<%=eList.get(i).getImage3Name()%>" width="40" height="40"></td>
 		<td><button name="name" value="<%= eList.get(i).getId() %>" type="submit">Details</button></td>
 	</tr>
 	<%} %>
 	<tr>
-		<th><button name="checkEna" value="Freigeben" type="submit">Freigeben</button></th>
-		<th><button name="checkDel" value="Loeschen" type="submit">Löschen</button></th> 
+		<th><button name="checkEna" value="Freigeben" type="submit" onclick="return confirm('Wollen Sie es wirklich Freigeben?')">Freigeben</button></th>
+		<th><button name="checkDel" value="Loeschen" type="submit" onclick="return confirm('Wollen Sie wirklich Löschen?')">Löschen</button></th>
 	</tr>
 	
 </table>

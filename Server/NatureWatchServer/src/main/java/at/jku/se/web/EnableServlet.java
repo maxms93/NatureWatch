@@ -49,6 +49,7 @@ public class EnableServlet extends HttpServlet {
 		ArrayList<Sighting> slist = new ArrayList<Sighting>();
 		slist.add(s);
 		SightingFacade.updateSightingAdmin(db.getConnection(), slist);
+		db.close();
 		response.sendRedirect("Sightings.jsp");
 	}
 

@@ -109,15 +109,15 @@
 	</tr>
 	<tr>
 		<td><b>Image1: </b></td>
-		<td><%=sighting.getImage1()%></td>
+		<td><img src="../images/<%=sighting.getImage1Name()%>" width="400" height="400"></td>
 	</tr>
 	<tr>
 		<td><b>Image2: </b></td>
-		<td><%=sighting.getImage2()%></td>
+		<td><img src="../images/<%=sighting.getImage2Name()%>" width="400" height="400"></td>
 	</tr>
 	<tr>
 		<td><b>Image3: </b></td>
-		<td><%=sighting.getImage3()%></td>
+		<td><img src="../images/<%=sighting.getImage3Name()%>" width="400" height="400"></td>
 	</tr>
 	</table>
 

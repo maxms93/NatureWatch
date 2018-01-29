@@ -40,6 +40,7 @@ public class SpeciesWebController extends HttpServlet {
 		if (request.getParameter("delSpec") != null) {
 			DatabaseConnector db = new DatabaseConnector();
 			SpeciesFacade.deleteSpeciesByAdmin(db.getConnection(), request.getParameter("delSpec"));
+			db.close();
 			response.sendRedirect("SpeciesList.jsp");
 		}
 		//doGet(request, response);

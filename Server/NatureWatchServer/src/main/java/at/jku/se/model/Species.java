@@ -1,23 +1,31 @@
 package at.jku.se.model;
 
 import java.io.Serializable;
+
+import javax.persistence.Id;
+
 import com.owlike.genson.annotation.JsonProperty;
 
 public class Species implements Serializable {
-
+	
 	private int id;
 	private String species;
 	private String category;
 	private String latinName;
 	private String normalName;
 	private String description;
+	private int validFrom;
+	private int validTo;
 	private byte[] image1;
 	private byte[] image2;
 	private byte[] image3;
 	private byte[] image4;
 	private byte[] image5;
-	private int validFrom;
-	private int validTo;
+	private String image1Name;
+	private String image2Name;
+	private String image3Name;
+	private String image4Name;
+	private String image5Name;
 
 	public Species(@JsonProperty("id") int id,
 			@JsonProperty("species") String species,
@@ -50,6 +58,33 @@ public class Species implements Serializable {
 		
 	}
 	
+	public Species(int id, String species, String category, String latinName,
+			String normalName, String description, int validFrom, int validTo,
+			byte[] image1, byte[] image2, byte[] image3, byte[] image4,
+			byte[] image5, String image1Name, String image2Name,
+			String image3Name, String image4Name, String image5Name) {
+		super();
+		this.id = id;
+		this.species = species;
+		this.category = category;
+		this.latinName = latinName;
+		this.normalName = normalName;
+		this.description = description;
+		this.validFrom = validFrom;
+		this.validTo = validTo;
+		this.image1 = image1;
+		this.image2 = image2;
+		this.image3 = image3;
+		this.image4 = image4;
+		this.image5 = image5;
+		this.image1Name = image1Name;
+		this.image2Name = image2Name;
+		this.image3Name = image3Name;
+		this.image4Name = image4Name;
+		this.image5Name = image5Name;
+	}
+
+
 	public int getId() {
 		return id;
 	}
@@ -153,5 +188,47 @@ public class Species implements Serializable {
 	public void setValidTo(int validTo) {
 		this.validTo = validTo;
 	}
+
+	public String getImage1Name() {
+		return image1Name;
+	}
+
+	public void setImage1Name(String image1Name) {
+		this.image1Name = image1Name;
+	}
+
+	public String getImage2Name() {
+		return image2Name;
+	}
+
+	public void setImage2Name(String image2Name) {
+		this.image2Name = image2Name;
+	}
+
+	public String getImage3Name() {
+		return image3Name;
+	}
+
+	public void setImage3Name(String image3Name) {
+		this.image3Name = image3Name;
+	}
+
+	public String getImage4Name() {
+		return image4Name;
+	}
+
+	public void setImage4Name(String image4Name) {
+		this.image4Name = image4Name;
+	}
+
+	public String getImage5Name() {
+		return image5Name;
+	}
+
+	public void setImage5Name(String image5Name) {
+		this.image5Name = image5Name;
+	}
+	
+	
 
 }

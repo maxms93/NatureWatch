@@ -44,7 +44,7 @@ public class SightingFacade {
 				byte[] image2 = ftp.getFile(imgName2);
 				byte[] image3 = ftp.getFile(imgName3);
 				
-				s = new Sighting(speciesId, description, longitude, latitude, seaLevel, state, country, city, user, dateTime, enabled, image1,image2,image3);
+				s = new Sighting(speciesId, description, longitude, latitude, seaLevel, state, country, city, user, dateTime, enabled, image1,image2,image3,imgName1,imgName2,imgName3);
 				s.setId(rid);
 			}
 			
@@ -106,7 +106,7 @@ public class SightingFacade {
 				byte[] image3 = ftp.getFile(img3Name);
 
 				s = new Sighting(rspeciesId, rdescription, rlongitude, rlatitude, rseaLevel,
-						rstate, rcountry, rcity, ruser, rDate, renable, image1, image2, image3);
+						rstate, rcountry, rcity, ruser, rDate, renable, image1, image2, image3,img1Name,img2Name,img3Name);
 				s.setId(rid);
 				list.add(s);
 
@@ -275,7 +275,7 @@ public class SightingFacade {
 				byte[] image3 = ftp.getFile(img3Name);
 
 				s = new Sighting(rspeciesId, rdescription, rlongitude, rlatitude, rseaLevel,
-						rstate, rcountry, rcity, ruser, rDate, renabled, image1, image2, image3);
+						rstate, rcountry, rcity, ruser, rDate, renabled, image1, image2, image3, img1Name, img2Name, img3Name);
 				s.setId(rid);
 				list.add(s);
 
@@ -354,7 +354,7 @@ public class SightingFacade {
 				byte[] image2 = ftp.getFile(imgName2);
 				byte[] image3 = ftp.getFile(imgName3);
 				
-				s = new Sighting(speciesId, description, longitude, latitude, seaLevel, state, country, city, user, dateTime, enabled, image1,image2,image3);
+				s = new Sighting(speciesId, description, longitude, latitude, seaLevel, state, country, city, user, dateTime, enabled, image1,image2,image3, imgName1, imgName2, imgName3);
 				s.setId(rid);
 			}
 			
@@ -413,7 +413,7 @@ public class SightingFacade {
 				byte[] image3 = ftp.getFile(img3Name);
 
 				s = new Sighting(rspeciesId, rdescription, rlongitude, rlatitude, rseaLevel,
-						rstate, rcountry, rcity, ruser, rDate, renabled, image1, image2, image3);
+						rstate, rcountry, rcity, ruser, rDate, renabled, image1, image2, image3, img1Name, img2Name, img3Name);
 				s.setId(rid);
 				list.add(s);
 

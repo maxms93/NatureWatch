@@ -46,7 +46,7 @@ public class SpeciesFacade {
 
 				s = new Species(rid, species, category, latinName, normalName,
 						description, validFrom, validTo, image1, image2,
-						image3, image4, image5);
+						image3, image4, image5, img1Name, img2Name, img3Name, img4Name, img5Name);
 
 			}
 
@@ -103,7 +103,7 @@ public class SpeciesFacade {
 
 				s = new Species(rid, rspecies, rcategory, rlatinName,
 						rnormalName, rdescription, rvalidFrom, rvalidTo,
-						image1, image2, image3, image4, image5);
+						image1, image2, image3, image4, image5, img1Name, img2Name, img3Name, img4Name, img5Name);
 
 				list.add(s);
 
@@ -153,7 +153,7 @@ public class SpeciesFacade {
 
 				s = new Species(rid, rspecies, rcategory, rlatinName,
 						rnormalName, rdescription, rvalidFrom, rvalidTo,
-						image1, image2, image3, image4, image5);
+						image1, image2, image3, image4, image5, img1Name, img2Name, img3Name, img4Name, img5Name);
 
 				list.add(s);
 

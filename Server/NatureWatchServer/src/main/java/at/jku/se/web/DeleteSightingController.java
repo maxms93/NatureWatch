@@ -41,6 +41,7 @@ public class DeleteSightingController extends HttpServlet {
 		String[] ids = new String[1];
 		ids[0] = request.getParameter("deleteSub");
 		SightingFacade.deleteSightingByAdmin(db.getConnection(), ids);
+		db.close();
 		response.sendRedirect("Sightings.jsp");
 	}
 

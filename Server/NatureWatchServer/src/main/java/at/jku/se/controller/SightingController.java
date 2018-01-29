@@ -54,7 +54,7 @@ public class SightingController {
 			@DefaultValue("%") @QueryParam("speciesId") String speciesId,
 			@DefaultValue("%") @QueryParam("state") String state,
 			@DefaultValue("%") @QueryParam("country") String country,
-			@DefaultValue("Y") @QueryParam("country") String enabled)
+			@DefaultValue("Y") @QueryParam("enabled") String enabled)
 			throws ParseException {
 
 		Calendar cfrom = Calendar.getInstance();
@@ -137,12 +137,9 @@ public class SightingController {
 	@Path("/enabled")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Sighting> getSightingsFilterForAdmin(
-			/*
-			 * @DefaultValue("%") @QueryParam("dateFrom") Date dateFrom,
-			 * 
-			 * @DefaultValue("%") @QueryParam("dateTo") Date dateTo,
-			 */
-			// city einbauen
+			/*@DefaultValue("%") @QueryParam("dateFrom") Date dateFrom,
+			@DefaultValue("%") @QueryParam("dateTo") Date dateTo,*/
+			//city einbauen
 			@DefaultValue("%") @QueryParam("user") String user,
 			@DefaultValue("%") @QueryParam("speciesId") String speciesId,
 			@DefaultValue("%") @QueryParam("state") String state,
@@ -150,10 +147,9 @@ public class SightingController {
 			@DefaultValue("%") @QueryParam("enabled") String enabled) {
 
 		DatabaseConnector db = new DatabaseConnector();
-
-		List<Sighting> list = SightingFacade.getSightingFilterForAdmin(
-				db.getConnection(), /* dateFrom, dateTo, */user, speciesId,
-				state, country, enabled);
+		
+		List<Sighting> list = SightingFacade.getSightingFilterForAdmin(db.getConnection(), /*dateFrom, dateTo, */user,
+				speciesId, state, country,enabled);
 		
 		db.close();
 
