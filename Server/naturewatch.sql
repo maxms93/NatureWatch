@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 12. Jan 2018 um 15:02
+-- Erstellungszeit: 29. Jan 2018 um 14:15
 -- Server-Version: 10.1.21-MariaDB
 -- PHP-Version: 7.1.1
 
@@ -55,9 +55,8 @@ TRUNCATE TABLE `sighting`;
 --
 
 INSERT INTO `sighting` (`id`, `speciesid`, `description`, `longitude`, `latitude`, `sealevel`, `city`, `state`, `country`, `user`, `datetime`, `enabled`, `image1`, `image2`, `image3`) VALUES
-(1, 1, 'gefunden', '443.00', '4345.00', 2, 'linz', 'ooe', 'oe', 'max', '2017-12-28 00:00:00', 'Y', '1_1.jpg', NULL, NULL),
-(2, 1, 'GUT', '4.21', '2.22', 2, 'Traun', 'ooe', 'oe', 'samet', '2017-12-20 00:00:00', 'Y', '2_1', '2_2', NULL),
-(5, 1, 'Tier', '4.00', '2.00', 2, 'Traun', 'ooe', 'oe', 'DU', '1970-01-01 00:00:00', 'Y', NULL, NULL, NULL);
+(1, 1, 'gefunden', '443.00', '4345.00', 2, 'linz', 'ooe', 'oe', 'max', '2017-12-28 00:00:00', 'Y', 'sighting_1_1.jpg', 'sighting_1_2.jpg', NULL),
+(2, 1, 'GUT', '4.21', '2.22', 2, 'Traun', 'ooe', 'oe', 'samet', '2017-12-20 00:00:00', 'Y', 'sighting_2_1.jpg', 'sighting_2_2.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -92,8 +91,8 @@ TRUNCATE TABLE `species`;
 --
 
 INSERT INTO `species` (`id`, `species`, `category`, `latinname`, `normalname`, `description`, `validfrom`, `validto`, `image1`, `image2`, `image3`, `image4`, `image5`) VALUES
-(1, 'wespenspinne', 'tier', 'schaß', 'spinne', 'is ah spinne', 1, 12, '/1.jpg', '', '', '', ''),
-(2, 'vogel', 'vog', 'mf', 'mdm', 'kdpsmdksml', 3, 12, '/1.jpg', '', '', '', '');
+(1, 'wespenspinne', 'tier', 'schaß', 'spinne', 'is ah spinne', 1, 12, 'art_1_1.jpg', 'art_1_2.jpg', 'art_1_3.jpg', '', ''),
+(2, 'vogel', 'vog', 'mf', 'mdm', 'kdpsmdksml', 3, 12, 'art_2_1.jpg', 'art_2_2.jpg', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -156,7 +155,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT für Tabelle `sighting`
 --
 ALTER TABLE `sighting`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints der exportierten Tabellen
 --
