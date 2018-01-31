@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response;
 
 import at.jku.se.database.DatabaseConnector;
 import at.jku.se.model.Sighting;
+import at.jku.se.model.adapter.JsonAdapter;
 import at.jku.se.session.SightingFacade;
 
 @Path("/sighting")
@@ -29,8 +30,8 @@ public class SightingController {
 
 	@GET
 	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Sighting getSighting(@PathParam("id") Long id) {
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getSighting(@PathParam("id") Long id) {
 
 		DatabaseConnector db = new DatabaseConnector();
 
@@ -38,14 +39,14 @@ public class SightingController {
 
 		db.close();
 
-		return s;
+		return JsonAdapter.write(s);
 
 	}
 
 	@GET
 	@Path("/list")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Sighting> getSightingsFilter(
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getSightingsFilter(
 			@DefaultValue("%") @QueryParam("dateFrom") String dateFrom,
 			@DefaultValue("%") @QueryParam("dateTo") String dateTo,
 			// city einbauen
@@ -89,17 +90,17 @@ public class SightingController {
 
 		db.close();
 
-		return list;
+		return JsonAdapter.writeList(list);
 
 	}
 
 	@POST
 	@Path("/create")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createSighting(Sighting newSighting) {
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response createSighting(String newSighting) {
 		DatabaseConnector db = new DatabaseConnector();
 
-		SightingFacade.insertSighting(db.getConnection(), newSighting);
+		SightingFacade.insertSighting(db.getConnection(), JsonAdapter.read(newSighting, new Sighting()));
 
 		db.close();
 
@@ -108,7 +109,7 @@ public class SightingController {
 
 	@DELETE
 	@Path("/delete/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public Response deleteSighting(@PathParam("id") Long id) {
 		DatabaseConnector db = new DatabaseConnector();
 		Sighting s = SightingFacade.getSigthing(db.getConnection(), id);
@@ -122,11 +123,11 @@ public class SightingController {
 
 	@PUT
 	@Path("/update")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateSighting(Sighting s) {
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response updateSighting(String s) {
 		DatabaseConnector db = new DatabaseConnector();
 
-		SightingFacade.updateSighting(db.getConnection(), s);
+		SightingFacade.updateSighting(db.getConnection(), JsonAdapter.read(s, new Sighting()));
 		
 		db.close();
 
@@ -135,8 +136,8 @@ public class SightingController {
 
 	@GET
 	@Path("/enabled")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Sighting> getSightingsFilterForAdmin(
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getSightingsFilterForAdmin(
 			/*@DefaultValue("%") @QueryParam("dateFrom") Date dateFrom,
 			@DefaultValue("%") @QueryParam("dateTo") Date dateTo,*/
 			//city einbauen
@@ -153,16 +154,16 @@ public class SightingController {
 		
 		db.close();
 
-		return list;
+		return JsonAdapter.writeList(list);
 	}
 
 	@PUT
 	@Path("/enabled/update")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateSightingAdmin(ArrayList<Sighting> slist) {
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response updateSightingAdmin(String list) {
 		DatabaseConnector db = new DatabaseConnector();
 
-		SightingFacade.updateSightingAdmin(db.getConnection(), slist);
+		SightingFacade.updateSightingAdmin(db.getConnection(), (ArrayList<Sighting>) JsonAdapter.readList(list, new Sighting()));
 
 		db.close();
 		

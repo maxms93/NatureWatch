@@ -1,12 +1,8 @@
 package at.jku.se.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Id;
-
 import com.owlike.genson.annotation.JsonProperty;
 
-public class Species implements Serializable {
+public class Species {
 	
 	private int id;
 	private String species;
@@ -84,6 +80,10 @@ public class Species implements Serializable {
 		this.image5Name = image5Name;
 	}
 
+
+	public Species() {
+		super();
+	}
 
 	public int getId() {
 		return id;

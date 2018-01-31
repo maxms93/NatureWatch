@@ -11,8 +11,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.google.gson.Gson;
+import com.owlike.genson.Genson;
+
 import at.jku.se.database.DatabaseConnector;
 import at.jku.se.model.Species;
+import at.jku.se.model.adapter.JsonAdapter;
 import at.jku.se.session.SpeciesFacade;
 
 
@@ -21,23 +25,23 @@ public class SpeciesController {
 
 	@GET
 	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Species getSpecies(@PathParam("id") int id) {
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getSpecies(@PathParam("id") int id) {
 
 		DatabaseConnector db = new DatabaseConnector();
 
 		Species s = SpeciesFacade.getSpecies(db.getConnection(), id);
 
 		db.close();
-		
-		return s;
+		    
+		return JsonAdapter.write(s);
 
 	}
 
 	@GET
 	@Path("/list")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Species> getSpecies(
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getSpecies(
 			@DefaultValue("%") @QueryParam("species") String species,
 			@DefaultValue("%") @QueryParam("category") String category,
 			@DefaultValue("%") @QueryParam("latinName") String latinName,
@@ -53,7 +57,7 @@ public class SpeciesController {
 
 		db.close();
 		
-		return list;
+		return JsonAdapter.writeList(list);
 
 	}
 

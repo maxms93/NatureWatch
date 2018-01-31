@@ -20,14 +20,15 @@ import at.jku.se.session.UserFacade;
 import at.jku.se.database.DatabaseConnector;
 import at.jku.se.database.MailHandler;
 import at.jku.se.model.User;
+import at.jku.se.model.adapter.JsonAdapter;
 
 @Path("/user")
 public class UserController {
 
 	@PUT
 	@Path("/login")
-	@Produces(MediaType.APPLICATION_JSON)
-	public User login(@DefaultValue("null") @QueryParam("email") String email,
+	@Produces(MediaType.TEXT_PLAIN)
+	public String login(@DefaultValue("null") @QueryParam("email") String email,
 					  @DefaultValue("null") @QueryParam("password") String password) {
 
 		DatabaseConnector db = new DatabaseConnector();
@@ -39,20 +40,20 @@ public class UserController {
 		if (u == null) {
 			System.out
 					.println("User " + email + " doesn't exist!");
-			return new User("", "", "", "", "", "", "", false);
+			return JsonAdapter.write(new User("", "", "", "", "", "", "", false));
 		}
 
 		if (!u.getPassword().equals(email)) {
 			System.out.println("Password does't match!");
-			return u;
+			return JsonAdapter.write(u);
 		}
 
 		if (!u.isEnabled()) {
 			System.out.println("User " + email + " is not enabled!");
-			return u;
+			return JsonAdapter.write(u);
 		}
 
-		return u;
+		return JsonAdapter.write(u);
 	}
 
 	@POST
@@ -141,10 +142,12 @@ public class UserController {
 
 	@PUT
 	@Path("/update")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(User updateUser) {
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response update(String updateUserStr) {
 
 		DatabaseConnector db = new DatabaseConnector();
+		
+		User updateUser = JsonAdapter.read(updateUserStr, new User());
 		
 		User u = UserFacade.getUser(db.getConnection(), updateUser.getUsername());
 

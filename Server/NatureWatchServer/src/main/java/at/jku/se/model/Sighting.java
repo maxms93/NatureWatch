@@ -122,6 +122,10 @@ public class Sighting {
 		this.enabled = enabled;
 	}
 
+	public Sighting() {
+		super();
+	}
+
 	public Long getId() {
 		return id;
 	}
