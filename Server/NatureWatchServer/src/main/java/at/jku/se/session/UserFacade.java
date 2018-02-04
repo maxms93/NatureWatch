@@ -28,9 +28,10 @@ public class UserFacade {
 				String zip = result.getString("ZIP");
 				String city = result.getString("CITY");
 				boolean enabled = result.getString("ENABLED").equals("Y");
+				boolean adminflag = result.getString("ADMINFLAG").equals("Y");
 
 				u = new User(username, password, remail, firstname, lastname,
-						zip, city, enabled);
+						zip, city, enabled,adminflag);
 
 			}
 
@@ -44,8 +45,8 @@ public class UserFacade {
 		
 		try {
 			PreparedStatement statement = connection
-					.prepareStatement("INSERT INTO user(USERNAME,PASSWORD,EMAIL,FIRSTNAME,LASTNAME,ZIP,CITY,ENABLED) "
-							+ "	VALUES(?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO user(USERNAME,PASSWORD,EMAIL,FIRSTNAME,LASTNAME,ZIP,CITY,ENABLED,ADMINFLAG) "
+							+ "	VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, newUser.getUsername());
 			statement.setString(2, newUser.getPassword());
 			statement.setString(3, newUser.getEmail());
@@ -54,6 +55,7 @@ public class UserFacade {
 			statement.setString(6, newUser.getZip());
 			statement.setString(7, newUser.getCity());
 			statement.setString(8, "N");
+			statement.setString(9, "N");
 			statement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -61,14 +63,14 @@ public class UserFacade {
 		}
 	}
 
-	public static void enableUser(Connection connection, String username) {
+	public static void enableUser(Connection connection, String email) {
 
 		try {
 			PreparedStatement statement = connection
 					.prepareStatement("UPDATE user SET ENABLED = ? "
-							+ " WHERE USERNAME = ?");
+							+ " WHERE EMAIL = ?");
 			statement.setString(1, "Y");
-			statement.setString(2, username);
+			statement.setString(2, email);
 			statement.executeUpdate();
 
 		} catch (SQLException e) {

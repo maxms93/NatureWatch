@@ -16,7 +16,7 @@ import at.jku.se.controller.UserController;
 
 public class MailHandler {
 
-	public static void sendMail(String empfaenger, String betreff, String text) {
+	public static boolean sendMail(String empfaenger, String betreff, String text) {
 
 		// https://myaccount.google.com/lesssecureapps aktivieren
 		try{
@@ -25,6 +25,10 @@ public class MailHandler {
             		
             final String fromEmail = prop.getProperty("fromEmail");
             final String password = prop.getProperty("password");
+            
+            if (fromEmail.equals("noMail")){
+            	return false;
+            }
 
             Authenticator auth = new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -45,6 +49,7 @@ public class MailHandler {
             System.out.println("Mail fail");
             System.out.println(ex);
         }
+		return true;
 	}
 
 	private static Properties getMailProperties() {

@@ -42,7 +42,7 @@ public class DeleteSightingController extends HttpServlet {
 		ids[0] = request.getParameter("deleteSub");
 		SightingFacade.deleteSightingByAdmin(db.getConnection(), ids);
 		db.close();
-		response.sendRedirect("Sightings.jsp");
+		response.sendRedirect(request.getContextPath()+"/ViewSightingsAction");
 	}
 
 }

@@ -5,14 +5,11 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -27,55 +24,57 @@ public class UserController {
 
 	@PUT
 	@Path("/login")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String login(@DefaultValue("null") @QueryParam("email") String email,
-					  @DefaultValue("null") @QueryParam("password") String password) {
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response login(String value) {
+		
+		User user = JsonAdapter.read(value, new User());
 
 		DatabaseConnector db = new DatabaseConnector();
 
-		User u = UserFacade.getUser(db.getConnection(), email);
+		User u = UserFacade.getUser(db.getConnection(), user.getEmail());
 
 		db.close();
 		
 		if (u == null) {
 			System.out
-					.println("User " + email + " doesn't exist!");
-			return JsonAdapter.write(new User("", "", "", "", "", "", "", false));
+					.println("User " + user.getEmail() + " doesn't exist!");
+			return Response.status(201).entity("User doesn't exist!").build();
 		}
 
-		if (!u.getPassword().equals(email)) {
+		if (!u.getPassword().equals(user.getPassword())) {
 			System.out.println("Password does't match!");
-			return JsonAdapter.write(u);
+			return Response.status(202).entity("Password doesnt match!").build();
 		}
 
 		if (!u.isEnabled()) {
-			System.out.println("User " + email + " is not enabled!");
-			return JsonAdapter.write(u);
+			System.out.println("User " + user.getEmail() + " is not enabled!");
+			return Response.status(203).entity("User not enabled!").build();
 		}
 
-		return JsonAdapter.write(u);
+		return Response.status(200).entity("User login!").build();
 	}
 
 	@POST
 	@Path("/create")
-	public Response create(@DefaultValue("null") @QueryParam("email") String email,
-			  			   @DefaultValue("null") @QueryParam("password") String password,
-			  			   @DefaultValue("null") @QueryParam("name") String name) {
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response create(String value) {
 
+		User user = JsonAdapter.read(value, new User());
 		DatabaseConnector db = new DatabaseConnector();
-		User u = UserFacade.getUser(db.getConnection(), email);
+		User u = UserFacade.getUser(db.getConnection(), user.getEmail());
 
 		if (u != null) {
 			db.close();
-			System.out.println("User " + u.getUsername() + " already exists!");
+			System.out.println("User " + u.getEmail() + " already exists!");
 			return Response.status(201)
-					.entity("User " + u.getUsername() + " already exists!")
+					.entity("User " + u.getEmail() + " already exists!")
 					.build();
 		}
 		
-		User newUser = new User(name, password, email, null, null, null, null, false);
-
-		UserFacade.insertUser(db.getConnection(), newUser);
+		user.setEnabled(false);
+		user.setAdminflag(false);
+		
+		UserFacade.insertUser(db.getConnection(), user);
 
 		Properties prop = new Properties();
 		InputStream input = null;
@@ -97,8 +96,10 @@ public class UserController {
 
 			String link = "http://" + prop.getProperty("server") + ":"
 					+ prop.getProperty("port")
-					+ "/NatureWatchServer/user/enable/" + email;
-			MailHandler.sendMail(email, "Bestätigungsmail", link);
+					+ "/NatureWatchServer/rest/user/enable/" + user.getEmail();
+			if (!MailHandler.sendMail(user.getEmail(), "Bestatigungsmail", link)){
+				UserFacade.enableUser(db.getConnection(), user.getEmail());
+			}
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -149,13 +150,13 @@ public class UserController {
 		
 		User updateUser = JsonAdapter.read(updateUserStr, new User());
 		
-		User u = UserFacade.getUser(db.getConnection(), updateUser.getUsername());
+		User u = UserFacade.getUser(db.getConnection(), updateUser.getEmail());
 
 		if (u == null) {
 			db.close();
-			System.out.println("User " + updateUser.getUsername() + " doesn't exist!");
+			System.out.println("User " + updateUser.getEmail() + " doesn't exist!");
 			return Response.status(202)
-					.entity("User " + updateUser.getUsername() + " doesn't exist!").build();
+					.entity("User " + updateUser.getEmail() + " doesn't exist!").build();
 		}
 		
 		UserFacade.updateUser(db.getConnection(), updateUser);
@@ -189,7 +190,7 @@ public class UserController {
 		
 		String mail = "Ihr Passwort wurde auf " + newPassword + "gesetzt!";
 
-		MailHandler.sendMail(resetUser.getEmail(), "Passwort zurückgesetzt!", mail);
+		MailHandler.sendMail(resetUser.getEmail(), "Passwort zurï¿½ckgesetzt!", mail);
 		
 		db.close();
 

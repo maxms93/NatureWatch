@@ -37,16 +37,16 @@ public class SpeciesFacade {
 				String img4Name = result.getString("IMAGE4");
 				String img5Name = result.getString("IMAGE5");
 
-				FileHandler ftp = new FileHandler();
-				byte[] image1 = ftp.getFile(img1Name);
-				byte[] image2 = ftp.getFile(img2Name);
-				byte[] image3 = ftp.getFile(img3Name);
-				byte[] image4 = ftp.getFile(img4Name);
-				byte[] image5 = ftp.getFile(img5Name);
+				//FileHandler ftp = new FileHandler();
+				//byte[] image1 = ftp.getFile(img1Name);
+				//byte[] image2 = ftp.getFile(img2Name);
+				//byte[] image3 = ftp.getFile(img3Name);
+				//byte[] image4 = ftp.getFile(img4Name);
+				//byte[] image5 = ftp.getFile(img5Name);
 
 				s = new Species(rid, species, category, latinName, normalName,
-						description, validFrom, validTo, image1, image2,
-						image3, image4, image5, img1Name, img2Name, img3Name, img4Name, img5Name);
+						description, validFrom, validTo, null, null,
+						null, null, null, img1Name, img2Name, img3Name, img4Name, img5Name);
 
 			}
 
@@ -94,16 +94,16 @@ public class SpeciesFacade {
 				String img4Name = result.getString("IMAGE4");
 				String img5Name = result.getString("IMAGE5");
 
-				FileHandler ftp = new FileHandler();
-				byte[] image1 = ftp.getFile(img1Name);
-				byte[] image2 = ftp.getFile(img2Name);
-				byte[] image3 = ftp.getFile(img3Name);
-				byte[] image4 = ftp.getFile(img4Name);
-				byte[] image5 = ftp.getFile(img5Name);
+				//FileHandler ftp = new FileHandler();
+				//byte[] image1 = ftp.getFile(img1Name);
+				//byte[] image2 = ftp.getFile(img2Name);
+				//byte[] image3 = ftp.getFile(img3Name);
+				//byte[] image4 = ftp.getFile(img4Name);
+				//byte[] image5 = ftp.getFile(img5Name);
 
 				s = new Species(rid, rspecies, rcategory, rlatinName,
 						rnormalName, rdescription, rvalidFrom, rvalidTo,
-						image1, image2, image3, image4, image5, img1Name, img2Name, img3Name, img4Name, img5Name);
+						null, null, null, null, null, img1Name, img2Name, img3Name, img4Name, img5Name);
 
 				list.add(s);
 
@@ -144,16 +144,16 @@ public class SpeciesFacade {
 				String img4Name = result.getString("IMAGE4");
 				String img5Name = result.getString("IMAGE5");
 
-				FileHandler ftp = new FileHandler();
-				byte[] image1 = ftp.getFile(img1Name);
-				byte[] image2 = ftp.getFile(img2Name);
-				byte[] image3 = ftp.getFile(img3Name);
-				byte[] image4 = ftp.getFile(img4Name);
-				byte[] image5 = ftp.getFile(img5Name);
+				//FileHandler ftp = new FileHandler();
+				//byte[] image1 = ftp.getFile(img1Name);
+				//byte[] image2 = ftp.getFile(img2Name);
+				//byte[] image3 = ftp.getFile(img3Name);
+				//byte[] image4 = ftp.getFile(img4Name);
+				//byte[] image5 = ftp.getFile(img5Name);
 
 				s = new Species(rid, rspecies, rcategory, rlatinName,
 						rnormalName, rdescription, rvalidFrom, rvalidTo,
-						image1, image2, image3, image4, image5, img1Name, img2Name, img3Name, img4Name, img5Name);
+						null, null, null, null, null, img1Name, img2Name, img3Name, img4Name, img5Name);
 
 				list.add(s);
 
@@ -196,19 +196,19 @@ public class SpeciesFacade {
 			
 			FileHandler ftp = new FileHandler();
 			if (s.getImage1() != null) {
-				ftp.deleteFile("art_"+s.getId()+"_1");
+				ftp.deleteFile("art_"+s.getId()+"_1.jpg");
 			}
 			if (s.getImage2() != null) {
-				ftp.deleteFile("art_"+s.getId()+"_2");
+				ftp.deleteFile("art_"+s.getId()+"_2.jpg");
 			}
 			if (s.getImage3() != null) {
-				ftp.deleteFile("art_"+s.getId()+"_3");
+				ftp.deleteFile("art_"+s.getId()+"_3.jpg");
 			}
 			if (s.getImage4() != null) {
-				ftp.deleteFile("art_"+s.getId()+"_4");
+				ftp.deleteFile("art_"+s.getId()+"_4.jpg");
 			}
 			if (s.getImage5() != null) {
-				ftp.deleteFile("art_"+s.getId()+"_5");
+				ftp.deleteFile("art_"+s.getId()+"_5.jpg");
 			}
 			PreparedStatement statement2 = connection
 					.prepareStatement("DELETE FROM species WHERE id = ?");
@@ -219,5 +219,63 @@ public class SpeciesFacade {
 			e.printStackTrace();
 		}
 
+	}
+	
+public static void insertSpeciesByAdmin(Connection connection, Species species){
+		
+		try {
+			PreparedStatement statement = connection
+					.prepareStatement("INSERT INTO species(ID,SPECIES,CATEGORY,LATINNAME,NORMALNAME,DESCRIPTION,VALIDFROM,VALIDTO,IMAGE1,IMAGE2,IMAGE3,IMAGE4,IMAGE5) "
+							+ "	VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			
+			statement.setInt(1, species.getId());
+			statement.setString(2, species.getSpecies());
+			statement.setString(3, species.getCategory());
+			statement.setString(4, species.getLatinName());
+			statement.setString(5, species.getNormalName());
+			statement.setString(6, species.getDescription());
+			statement.setLong(7, species.getValidFrom());
+			statement.setLong(8, species.getValidTo());
+		    
+			FileHandler ftp = new FileHandler();
+			if (species.getImage1() != null) {
+				ftp.putFile("art_"+species.getId()+"_"+"1.jpg", species.getImage1());
+				statement.setString(9, "art_"+species.getId()+"_"+"1.jpg");
+			}else {
+				statement.setString(9, null);
+			}
+			if (species.getImage2() != null) {
+				ftp.putFile("art_"+species.getId()+"_"+"2.jpg", species.getImage2());
+				statement.setString(10, "art_"+species.getId()+"_"+"2.jpg");
+			}else {
+				statement.setString(10, null);
+			}
+			if (species.getImage3() != null) {
+				ftp.putFile("art_"+species.getId()+"_"+"3.jpg", species.getImage3());
+				statement.setString(11, "art_"+species.getId()+"_"+"3.jpg");
+			}else {
+				statement.setString(11, null);
+			}
+			if (species.getImage4() != null) {
+				ftp.putFile("art_"+species.getId()+"_"+"4.jpg", species.getImage4());
+				statement.setString(12, "art_"+species.getId()+"_"+"4.jpg");
+			}else {
+				statement.setString(12, null);
+			}
+			if (species.getImage5() != null) {
+				ftp.putFile("art_"+species.getId()+"_"+"5.jpg", species.getImage5());
+				statement.setString(13, "art_"+species.getId()+"_"+"5.jpg");
+			}else {
+				statement.setString(13, null);
+			}
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 }

@@ -12,6 +12,7 @@ public class User {
 	private String zip;
 	private String city;
 	private boolean enabled;
+	private boolean adminflag;
 
 	public User(@JsonProperty("username") String username,
 			@JsonProperty("password") String password,
@@ -20,7 +21,8 @@ public class User {
 			@JsonProperty("lastname") String lastname,
 			@JsonProperty("zip") String zip,
 			@JsonProperty("city") String city,
-			@JsonProperty("enabled") boolean enabled) {
+			@JsonProperty("enabled") boolean enabled,
+			@JsonProperty("adminflag") boolean adminflag) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -29,6 +31,7 @@ public class User {
 		this.zip = zip;
 		this.city = city;
 		this.enabled = enabled;
+		this.adminflag = adminflag;
 	}
 
 	public User() {
@@ -97,6 +100,14 @@ public class User {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public boolean isAdminflag() {
+		return adminflag;
+	}
+
+	public void setAdminflag(boolean adminflag) {
+		this.adminflag = adminflag;
 	}
 
 }

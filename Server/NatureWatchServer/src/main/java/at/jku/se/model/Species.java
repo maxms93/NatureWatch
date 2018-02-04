@@ -10,8 +10,8 @@ public class Species {
 	private String latinName;
 	private String normalName;
 	private String description;
-	private int validFrom;
-	private int validTo;
+	private long validFrom;
+	private long validTo;
 	private byte[] image1;
 	private byte[] image2;
 	private byte[] image3;
@@ -29,8 +29,8 @@ public class Species {
 			@JsonProperty("latinName") String latinName,
 			@JsonProperty("normalName") String normalName,
 			@JsonProperty("description") String description,
-			@JsonProperty("validFrom") int validFrom, 
-			@JsonProperty("validTo") int validTo,
+			@JsonProperty("validFrom") long validFrom, 
+			@JsonProperty("validTo") long validTo,
 			@JsonProperty("image1") byte[] image1,
 			@JsonProperty("image2") byte[] image2,
 			@JsonProperty("image3") byte[] image3,
@@ -55,7 +55,7 @@ public class Species {
 	}
 	
 	public Species(int id, String species, String category, String latinName,
-			String normalName, String description, int validFrom, int validTo,
+			String normalName, String description, long validFrom, long validTo,
 			byte[] image1, byte[] image2, byte[] image3, byte[] image4,
 			byte[] image5, String image1Name, String image2Name,
 			String image3Name, String image4Name, String image5Name) {
@@ -173,19 +173,19 @@ public class Species {
 		this.image5 = image5;
 	}
 
-	public int getValidFrom() {
+	public long getValidFrom() {
 		return validFrom;
 	}
 
-	public void setValidFrom(int validFrom) {
+	public void setValidFrom(long validFrom) {
 		this.validFrom = validFrom;
 	}
 
-	public int getValidTo() {
+	public long getValidTo() {
 		return validTo;
 	}
 
-	public void setValidTo(int validTo) {
+	public void setValidTo(long validTo) {
 		this.validTo = validTo;
 	}
 

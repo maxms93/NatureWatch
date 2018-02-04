@@ -71,7 +71,7 @@ public class DetailController extends HttpServlet {
 			request.setAttribute("itemEnabled", enabled);
 			request.setAttribute("datefrom", dateFrom);
 			request.setAttribute("dateto", dateTo);
-			RequestDispatcher dispatcher = ctx.getRequestDispatcher("/Sightings.jsp");
+			RequestDispatcher dispatcher = ctx.getRequestDispatcher("/WEB-INF/Sightings.jsp");
 			dispatcher.forward(request, response);
 
 		}
@@ -80,7 +80,7 @@ public class DetailController extends HttpServlet {
 			String id = request.getParameter("name");
 			//System.out.println(id);
 			request.setAttribute("name", id);
-			RequestDispatcher dispatcher = ctx.getRequestDispatcher("/SightingsDetail.jsp");
+			RequestDispatcher dispatcher = ctx.getRequestDispatcher("/WEB-INF/SightingsDetail.jsp");
 			dispatcher.forward(request, response);
 		}
 		else if(request.getParameter("checkEna") != null)
@@ -105,7 +105,7 @@ public class DetailController extends HttpServlet {
 				}
 				SightingFacade.updateSightingAdmin(db.getConnection(), sightingsList);
 				db.close();
-				response.sendRedirect("Sightings.jsp");
+				response.sendRedirect(request.getContextPath()+"/ViewSightingsAction");
 			}
 		}
 		else if(request.getParameter("checkDel") != null)
@@ -117,7 +117,7 @@ public class DetailController extends HttpServlet {
 			if (selectItemsId != null) {
 				SightingFacade.deleteSightingByAdmin(db.getConnection(), selectItemsId);
 				db.close();
-				response.sendRedirect("Sightings.jsp");
+				response.sendRedirect(request.getContextPath()+"/ViewSightingsAction");
 			}
 		}
 		

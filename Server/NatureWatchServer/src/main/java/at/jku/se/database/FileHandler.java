@@ -68,6 +68,7 @@ public class FileHandler {
 		}
 
 		File file = new File(this.directory + name);
+		boolean b = file.delete();
 		return file.delete();
 
 	}

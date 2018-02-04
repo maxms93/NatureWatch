@@ -30,7 +30,7 @@ public class Sighting {
 	private String image1Name;
 	private String image2Name;
 	private String image3Name;
-
+	
 	public Sighting(int speciesId, String description,
 			double longitude, double latitude, int seaLevel, String state,
 			String country, String city, String user, Date dateTime,
@@ -120,6 +120,34 @@ public class Sighting {
 		this.user = user;
 		this.dateTime = dateTime;
 		this.enabled = enabled;
+	}
+	
+	
+
+	public Sighting(Long id, int speciesId, String description,
+			double longitude, double latitude, int seaLevel, String state,
+			String country, String city, String user, Date dateTime,
+			boolean enabled, byte[] image1, byte[] image2, byte[] image3,
+			String image1Name, String image2Name, String image3Name) {
+		super();
+		this.id = id;
+		this.speciesId = speciesId;
+		this.description = description;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.seaLevel = seaLevel;
+		this.state = state;
+		this.country = country;
+		this.city = city;
+		this.user = user;
+		this.dateTime = dateTime;
+		this.enabled = enabled;
+		this.image1 = image1;
+		this.image2 = image2;
+		this.image3 = image3;
+		this.image1Name = image1Name;
+		this.image2Name = image2Name;
+		this.image3Name = image3Name;
 	}
 
 	public Sighting() {

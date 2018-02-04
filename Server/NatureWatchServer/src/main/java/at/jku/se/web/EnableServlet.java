@@ -50,7 +50,7 @@ public class EnableServlet extends HttpServlet {
 		slist.add(s);
 		SightingFacade.updateSightingAdmin(db.getConnection(), slist);
 		db.close();
-		response.sendRedirect("Sightings.jsp");
+		response.sendRedirect(request.getContextPath()+"/ViewSightingsAction");
 	}
 
 }

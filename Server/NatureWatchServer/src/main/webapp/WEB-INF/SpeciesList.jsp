@@ -45,9 +45,41 @@
         	{
         		background-color: white;
         	}
+        	
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	display: inline;
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover {
+	background-color: #111;
+}
         </style>
 </head>
-<body>
+<body  bgcolor="#FAFAFA">
+
+	<ul>
+		<li><a href="<%=request.getContextPath()%>/ViewSightingsAction">Beobachtungen</a></li>
+		<li><a href="<%=request.getContextPath()%>/ViewAddAnimalAction">Tierarten einfügen</a></li>
+		<li><a href="<%=request.getContextPath()%>/ViewSpeciesListAction">Tierarten verwalten</a></li>
+	</ul>
+
 <h1 style="font-size:200%;" style="font-family: Arial, Verdana"><u> Tier- und Pflanzenartenliste verwalten </u></h1>
 
 <form name="form2" method="post" action="DelSpecAction">

@@ -20,6 +20,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 import at.jku.se.database.FileHandler;
+import at.jku.se.model.Sighting;
 import at.jku.se.model.Species;
 import at.jku.se.model.User;
 import at.jku.se.model.adapter.JsonAdapter;
@@ -30,13 +31,13 @@ public class ServletTest {
 
 		try {
 
-			String url = "http://localhost:9356/NatureWatchServer/rest/species/list";
+			String url = "http://localhost:9356/NatureWatchServer/rest/sighting/create";
 
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 			// optional default is GET
-			con.setRequestMethod("GET");
+			con.setRequestMethod("POST");
 
 			int responseCode = con.getResponseCode();
 			System.out.println("\nSending 'GET' request to URL : " + url);
@@ -58,7 +59,7 @@ public class ServletTest {
 			System.out.println(response.toString());
 
 			//Species species = JsonAdapter.read(response.toString(), new Species());
-			List<Species> l = JsonAdapter.readList(response.toString(), new Species());
+			List<Sighting> l = JsonAdapter.readList(response.toString(), new Sighting());
 			
 			//System.out.println(species.getCategory());
 			System.out.println("test");

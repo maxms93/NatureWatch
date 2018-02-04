@@ -5,6 +5,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"> 
 
+	<context-param> 
+      <description>Location to store uploaded file</description> 
+      <param-name>file-upload</param-name> 
+      <param-value>C:\Users\Max\Dropbox\STUDIUM\IT\trunk\Server\NatureWatchServer\</param-value> 
+   </context-param>
+   
 	<display-name>Archetype Created Web Application</display-name>
 	
 	<servlet>
@@ -78,9 +84,62 @@
 		<servlet-name>SpeciesWebController</servlet-name>
 		<url-pattern>/DelSpecAction</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>LoginController</display-name>
+		<servlet-name>LoginController</servlet-name>
+		<servlet-class>at.jku.se.web.LoginController</servlet-class>
+	</servlet>
+		<servlet-mapping>
+		<servlet-name>LoginController</servlet-name>
+		<url-pattern>/loginAction</url-pattern>
+	</servlet-mapping>
 
-	<welcome-file-list>
-	<welcome-file>Sightings.jsp</welcome-file>
-	</welcome-file-list>
-
+	<servlet>
+		<description>
+		</description>
+		<display-name>SaveController</display-name>
+		<servlet-name>SaveController</servlet-name>
+		<servlet-class>at.jku.se.web.SaveController</servlet-class>	
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SaveController</servlet-name>
+		<url-pattern>/saveAction</url-pattern>
+	</servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewSightingsController</display-name>
+    <servlet-name>ViewSightingsController</servlet-name>
+    <servlet-class>at.jku.se.web.ViewSightingsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewSightingsController</servlet-name>
+    <url-pattern>/ViewSightingsAction</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewAddAnimalController</display-name>
+    <servlet-name>ViewAddAnimalController</servlet-name>
+    <servlet-class>at.jku.se.web.ViewAddAnimalController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewAddAnimalController</servlet-name>
+    <url-pattern>/ViewAddAnimalAction</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>ViewSpeciesListController</display-name>
+    <servlet-name>ViewSpeciesListController</servlet-name>
+    <servlet-class>at.jku.se.web.ViewSpeciesListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewSpeciesListController</servlet-name>
+    <url-pattern>/ViewSpeciesListAction</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>/WEB-INF/login.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>

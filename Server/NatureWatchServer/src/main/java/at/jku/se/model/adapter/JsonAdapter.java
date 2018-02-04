@@ -143,6 +143,11 @@ public class JsonAdapter {
 		byte[] image3 = null;
 		byte[] image4 = null;
 		byte[] image5 = null;
+		String image1Name = null;
+		String image2Name = null;
+		String image3Name = null;
+		String image4Name = null;
+		String image5Name = null;
 
 		reader.beginObject();
 
@@ -174,6 +179,16 @@ public class JsonAdapter {
 				image4 = Base64.decodeBase64(reader.nextString());
 			} else if (name.equals("image5")) {
 				image5 = Base64.decodeBase64(reader.nextString());
+			} else if (name.equals("image1Name")) {
+				image1Name = reader.nextString();
+			} else if (name.equals("image2Name")) {
+				image2Name = reader.nextString();
+			} else if (name.equals("image3Name")) {
+				image3Name = reader.nextString();
+			} else if (name.equals("image4Name")) {
+				image4Name = reader.nextString();
+			} else if (name.equals("image5Name")) {
+				image5Name = reader.nextString();
 			}
 		}
 
@@ -181,10 +196,12 @@ public class JsonAdapter {
 
 		return new Species(id, species, category, latinName, normalName,
 				description, validFrom, validTo, image1, image2, image3,
-				image4, image5);
+				image4, image5, image1Name, image2Name, image3Name, image4Name,
+				image5Name);
 	}
 
-	private static Sighting readSighting(JsonReader reader) throws IOException, ParseException {
+	private static Sighting readSighting(JsonReader reader) throws IOException,
+			ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
 
@@ -203,6 +220,9 @@ public class JsonAdapter {
 		byte[] image1 = null;
 		byte[] image2 = null;
 		byte[] image3 = null;
+		String image1Name = null;
+		String image2Name = null;
+		String image3Name = null;
 
 		reader.beginObject();
 
@@ -238,6 +258,12 @@ public class JsonAdapter {
 				image2 = Base64.decodeBase64(reader.nextString());
 			} else if (name.equals("image3")) {
 				image3 = Base64.decodeBase64(reader.nextString());
+			}else if (name.equals("image1Name")) {
+				image1Name = reader.nextString();
+			} else if (name.equals("image2Name")) {
+				image2Name = reader.nextString();
+			} else if (name.equals("image3Name")) {
+				image3Name = reader.nextString();
 			}
 		}
 
@@ -245,7 +271,7 @@ public class JsonAdapter {
 
 		return new Sighting(id, speciesId, description, longitude, latitude,
 				seaLevel, state, country, city, user, dateTime, enabled,
-				image1, image2, image3);
+				image1, image2, image3, image1Name, image2Name, image3Name);
 	}
 
 	private static User readUser(JsonReader reader) throws IOException {
@@ -285,7 +311,7 @@ public class JsonAdapter {
 		reader.endObject();
 
 		return new User(username, password, email, firstname, lastname, zip,
-				city, enabled);
+				city, enabled, false);
 	}
 
 	private static void writeSpecies(JsonWriter writer, Species value)
@@ -320,6 +346,21 @@ public class JsonAdapter {
 		if (value.getImage5() != null) {
 			writer.name("image5").value(
 					Base64.encodeBase64String(value.getImage5()));
+		}
+		if (value.getImage1Name() != null && !value.getImage1Name().equals("")) {
+			writer.name("image1Name").value(value.getImage1Name());
+		}
+		if (value.getImage2Name() != null && !value.getImage2Name().equals("")) {
+			writer.name("image2Name").value(value.getImage2Name());
+		}
+		if (value.getImage3Name() != null && !value.getImage3Name().equals("")) {
+			writer.name("image3Name").value(value.getImage3Name());
+		}
+		if (value.getImage4Name() != null && !value.getImage4Name().equals("")) {
+			writer.name("image4Name").value(value.getImage4Name());
+		}
+		if (value.getImage5Name() != null && !value.getImage5Name().equals("")) {
+			writer.name("image5Name").value(value.getImage5Name());
 		}
 
 		writer.endObject();
@@ -357,6 +398,15 @@ public class JsonAdapter {
 		if (value.getImage3() != null) {
 			writer.name("image3").value(
 					Base64.encodeBase64String(value.getImage3()));
+		}
+		if (value.getImage1Name() != null && !value.getImage1Name().equals("")) {
+			writer.name("image1Name").value(value.getImage1Name());
+		}
+		if (value.getImage2Name() != null && !value.getImage2Name().equals("")) {
+			writer.name("image2Name").value(value.getImage2Name());
+		}
+		if (value.getImage3Name() != null && !value.getImage3Name().equals("")) {
+			writer.name("image3Name").value(value.getImage3Name());
 		}
 
 		writer.endObject();

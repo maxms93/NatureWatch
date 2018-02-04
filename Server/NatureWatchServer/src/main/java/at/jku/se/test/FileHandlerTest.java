@@ -27,14 +27,10 @@ public class FileHandlerTest {
 			//handler.deleteFile(firstRemoteFile);
 
 			File firstLocalFile = new File("C:/Users/Max/Downloads/1.jpg");
-
 			InputStream inputStream = new FileInputStream(firstLocalFile);
-
 			BufferedImage img = ImageIO.read(inputStream);
-
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ImageIO.write(img, "jpg", baos);
-
 			handler.putFile(firstRemoteFile, baos.toByteArray());
 			
 			byte[] a = handler.getFile(firstRemoteFile);
