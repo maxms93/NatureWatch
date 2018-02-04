@@ -55,7 +55,7 @@ public class SightingController {
 			@DefaultValue("%") @QueryParam("speciesId") String speciesId,
 			@DefaultValue("%") @QueryParam("state") String state,
 			@DefaultValue("%") @QueryParam("country") String country,
-			@DefaultValue("Y") @QueryParam("enabled") String enabled)
+			@DefaultValue("%") @QueryParam("enabled") String enabled)
 			throws ParseException {
 
 		Calendar cfrom = Calendar.getInstance();

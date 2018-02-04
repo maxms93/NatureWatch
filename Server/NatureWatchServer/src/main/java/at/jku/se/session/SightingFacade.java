@@ -40,15 +40,14 @@ public class SightingFacade {
 				String imgName2 = result.getString("IMAGE2");
 				String imgName3 = result.getString("IMAGE3");
 
-				//FileHandler ftp = new FileHandler();
-				//byte[] image1 = ftp.getFile(imgName1);
+				// FileHandler ftp = new FileHandler();
+				// byte[] image1 = ftp.getFile(imgName1);
 				// byte[] image2 = ftp.getFile(imgName2);
 				// byte[] image3 = ftp.getFile(imgName3);
 
 				s = new Sighting(speciesId, description, longitude, latitude,
 						seaLevel, state, country, city, user, dateTime,
-						enabled, null, null, null, imgName1, imgName2,
-						imgName3);
+						enabled, null, null, null, imgName1, imgName2, imgName3);
 				s.setId(rid);
 			}
 
@@ -73,17 +72,15 @@ public class SightingFacade {
 							+ " and speciesid like ? "
 							+ " and state like ? "
 							+ " and country like ? "
-							+ " and enabled like ? "
 							+ " and DATE(datetime) >= ? "
 							+ " and DATE(datetime) <= ? ");
-			statement.setString(1, "Y");
+			statement.setString(1, enabled);
 			statement.setString(2, user);
 			statement.setString(3, speciesId);
 			statement.setString(4, state);
 			statement.setString(5, country);
-			statement.setString(6, enabled);
-			statement.setDate(7, new java.sql.Date(dateFrom.getTime()));
-			statement.setDate(8, new java.sql.Date(dateTo.getTime()));
+			statement.setDate(6, new java.sql.Date(dateFrom.getTime()));
+			statement.setDate(7, new java.sql.Date(dateTo.getTime()));
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
@@ -110,8 +107,8 @@ public class SightingFacade {
 
 				s = new Sighting(rspeciesId, rdescription, rlongitude,
 						rlatitude, rseaLevel, rstate, rcountry, rcity, ruser,
-						rDate, renable, null, null, null, img1Name,
-						img2Name, img3Name);
+						rDate, renable, null, null, null, img1Name, img2Name,
+						img3Name);
 				s.setId(rid);
 				list.add(s);
 
@@ -123,8 +120,8 @@ public class SightingFacade {
 
 		return list;
 	}
-	
-	private static Long getMaxId(Connection connection){
+
+	private static Long getMaxId(Connection connection) {
 		Long id = (long) 0;
 		try {
 			PreparedStatement statement = connection
@@ -143,8 +140,8 @@ public class SightingFacade {
 
 	public static void insertSighting(Connection connection, Sighting sighting) {
 
-		sighting.setId(getMaxId(connection)+1);
-		
+		sighting.setId(getMaxId(connection) + 1);
+
 		try {
 			PreparedStatement statement = connection
 					.prepareStatement("INSERT INTO sighting(SPECIESID,DESCRIPTION,LONGITUDE,LATITUDE,SEALEVEL,CITY,STATE,COUNTRY,USER,DATETIME,ENABLED,IMAGE1,IMAGE2,IMAGE3,ID) "
@@ -154,14 +151,28 @@ public class SightingFacade {
 			statement.setDouble(3, sighting.getLongitude());
 			statement.setDouble(4, sighting.getLatitude());
 			statement.setInt(5, sighting.getSeaLevel());
-			statement.setString(6, sighting.getCity());
-			statement.setString(7, sighting.getState());
-			statement.setString(8, sighting.getCountry());
+			if (sighting.getCity() != null) {
+				statement.setString(6, sighting.getCity());
+			} else {
+				statement.setString(6, "linz");
+			}
+			if (sighting.getState() != null) {
+				statement.setString(7, sighting.getState());
+			} else {
+				statement.setString(7,"ooe");
+			}
+			if (sighting.getCountry() != null) {
+				statement.setString(8, sighting.getCountry());
+			} else {
+				statement.setString(8, "at");
+			}
+			
+			
 			statement.setString(9, sighting.getUser());
-			statement.setDate(10, new java.sql.Date(sighting.getDateTime().getTime()));
+			statement.setDate(10, new java.sql.Date(sighting.getDateTime()
+					.getTime()));
 			statement.setBoolean(11, sighting.isEnabled());
-			
-			
+
 			FileHandler ftp = new FileHandler();
 			if (sighting.getImage1() != null) {
 				ftp.putFile("sighting_" + sighting.getId() + "_" + "1.jpg",
@@ -308,8 +319,8 @@ public class SightingFacade {
 
 				s = new Sighting(rspeciesId, rdescription, rlongitude,
 						rlatitude, rseaLevel, rstate, rcountry, rcity, ruser,
-						rDate, renabled, null, null, null, img1Name,
-						img2Name, img3Name);
+						rDate, renabled, null, null, null, img1Name, img2Name,
+						img3Name);
 				s.setId(rid);
 				list.add(s);
 
@@ -389,8 +400,7 @@ public class SightingFacade {
 
 				s = new Sighting(speciesId, description, longitude, latitude,
 						seaLevel, state, country, city, user, dateTime,
-						enabled, null, null, null, imgName1, imgName2,
-						imgName3);
+						enabled, null, null, null, imgName1, imgName2, imgName3);
 				s.setId(rid);
 			}
 
@@ -449,8 +459,8 @@ public class SightingFacade {
 
 				s = new Sighting(rspeciesId, rdescription, rlongitude,
 						rlatitude, rseaLevel, rstate, rcountry, rcity, ruser,
-						rDate, renabled, null, null, null, img1Name,
-						img2Name, img3Name);
+						rDate, renabled, null, null, null, img1Name, img2Name,
+						img3Name);
 				s.setId(rid);
 				list.add(s);
 
